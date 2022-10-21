@@ -42,7 +42,7 @@ function generateHtmlFromArray(arrayToConvert) {
 
 /*
   When the submit button is clicked, filter results based on text that has been entered into search box.
-  Also update the right column values with the updated column info.
+  Also update the right column values with the updated column info. Testing.
  */
 submitButton.addEventListener("click", function () {
   let searchResult = document.getElementById("search-text").value;
