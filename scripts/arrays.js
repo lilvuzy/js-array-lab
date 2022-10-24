@@ -31,7 +31,7 @@ function generateHtmlFromItem(arrayObject) {
       <h6 class="card-subtitle mb-2 text-muted">${arrayObject.credits} credits</h6>
       <p class="card-text">${arrayObject.desc}</p>
       <a href="${arrayObject.url}" class="card-link">Card link</a>
-      <a href="#" class="card-link">Another link</a>
+      <a href="#" class="card-link">Go to Top</a>
     </div>
     <div class="card-footer">Required: ${arrayObject.prereqs}</div>
   </div>
