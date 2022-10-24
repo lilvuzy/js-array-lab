@@ -1,5 +1,13 @@
 console.log(data);
+// Assign form elements to constant variables
 const submitButton = document.getElementById("submit-btn");
+const searchForm = document.getElementById("search-text");
+
+// Instance variables for page.
+let currentArray = data.items;
+let currentLength = currentArray.length;
+let totalCredits = 0;
+let totalPrereqCredits = 0;
 
 /*
   Initialize the page with all cards stored in data.
@@ -7,6 +15,9 @@ const submitButton = document.getElementById("submit-btn");
 document.getElementById("card-results").innerHTML = generateHtmlFromArray(
   data.items
 );
+displayCount();
+updateCredits();
+displayCredits();
 
 /*
   Takes a single array item storing class data and converts it to html.
@@ -33,6 +44,7 @@ function generateHtmlFromItem(arrayObject) {
 */
 function generateHtmlFromArray(arrayToConvert) {
   let arrayHtmlString = "";
+  let itemCount = 0;
 
   arrayToConvert.forEach(function (arrayObject) {
     arrayHtmlString = arrayHtmlString + generateHtmlFromItem(arrayObject);
@@ -41,10 +53,47 @@ function generateHtmlFromArray(arrayToConvert) {
 }
 
 /*
+ Displays the current number of items on the page.
+*/
+function displayCount() {
+  document.getElementById("item-count").innerHTML = `${currentLength} items`;
+}
+
+/*
+  Take credit values and display them in the appropriate html section.
+*/
+function displayCredits() {
+  document.getElementById(
+    "total-credits"
+  ).innerHTML = `${totalCredits} credit-hours + ${totalPrereqCredits} credit-hours of prereqs`;
+}
+
+/*
+  Update credit values to match current array of classes.
+*/
+function updateCredits() {
+  totalCredits = 0;
+  totalPrereqCredits = 0;
+  currentArray.forEach(function (arrayObject) {
+    totalCredits += arrayObject.credits;
+    arrayObject.prereqs.forEach(function (prereq) {
+      totalPrereqCredits += 3;
+    });
+  });
+}
+
+/*
   When the submit button is clicked, filter results based on text that has been entered into search box.
   Also update the right column values with the updated column info. Testing.
  */
 submitButton.addEventListener("click", function () {
+  searchText();
+});
+
+/*
+  Search cards in big array for text currently in search box.
+*/
+function searchText() {
   let searchResult = document.getElementById("search-text").value;
   let filteredArray = data.items.filter((item) =>
     generateHtmlFromItem(item)
@@ -53,4 +102,21 @@ submitButton.addEventListener("click", function () {
   );
   document.getElementById("card-results").innerHTML =
     generateHtmlFromArray(filteredArray);
+  currentArray = filteredArray;
+  currentLength = currentArray.length;
+  displayCount();
+  updateCredits();
+  displayCredits();
+}
+
+/*
+  Call the search any time a key is pressed in the search box, click submit if enter key is pressed.
+*/
+searchForm.addEventListener("keydown", function (e) {
+  if (e.key == 13) {
+    e.preventDefault();
+    submitButton.click();
+  } else {
+    searchText();
+  }
 });
