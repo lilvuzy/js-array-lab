@@ -83,14 +83,6 @@ function updateCredits() {
 }
 
 /*
-  When the submit button is clicked, filter results based on text that has been entered into search box.
-  Also update the right column values with the updated column info. Testing.
- */
-submitButton.addEventListener("click", function () {
-  searchText();
-});
-
-/*
   Search cards in big array for text currently in search box.
 */
 function searchText() {
@@ -112,11 +104,6 @@ function searchText() {
 /*
   Call the search any time a key is pressed in the search box, click submit if enter key is pressed.
 */
-searchForm.addEventListener("keydown", function (e) {
-  if (e.key == 13) {
-    e.preventDefault();
-    submitButton.click();
-  } else {
-    searchText();
-  }
+searchForm.addEventListener("keydown", function () {
+  searchText();
 });
